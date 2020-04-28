@@ -1,0 +1,43 @@
+--------------------------------------------------------------------------------
+Real Time Clock auch unter Windows auf UTC einstellen
+Datei:	bvo-rtcinutc.txt
+Stand:	2017-02-16
+--------------------------------------------------------------------------------
+
+
+Quelle:
+	derzeit unbekannt
+
+
+
+Ausgangssituation
+-----------------
+Windows geht bei einer Standardinstallation davon aus das der RTC auf die lokale Zeit eingestellt ist.
+Linux geht (wenn es als einziges Betriebssystem installiert ist oder wenn ein Live-Linux gestartet wird) davon aus das der RTC auf UTC eingesetellt ist.
+In einem Dual-Boot-System mit Windows geht Linux meistens davon aus das der RTC auf die lokale Zeit eingestellt ist.
+Trotzdem kommt es hin und wieder vor das der RTC vom Betriebssystem auf die falsche bzw unpassende Zeitzone gestellt wird.
+
+Es spricht nichts dagegen den RTC prinzipiell auf UTC einzustellen und das Betriebssystem die Umrechnung auf die lokale Zeit vornehmen zu lassen.
+
+Windows braucht dazu einen geänderten Eintrag in der Registry.
+
+
+
+Registry-Anpassung
+------------------
+HKEY_LOCAL_MACHINE\
+	SYSTEM\
+	CurrentControlSet\
+	Control\
+	TimeZoneInformation
+	
+einen DWORD (32-bit) – Wert anlegen
+mit dem Namen RealTimeIsUniversal.
+
+Diesen Wert dann auf "1" setzen.
+
+
+
+Anmerkung
+---------
+Zusätzlich zu diesem Schritt ist eine Anpassung des Windows-Zeitservice (?) w32tm erforderlich.  Das ist derzeit eine geplante Baustelle - ich lebe damit das die Zeitsynchronisation in Windows 7 nicht ordendlich funktioniert.
